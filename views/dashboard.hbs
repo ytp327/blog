@@ -1,11 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+<h6>Dashboard</h6>
+<h3>Welcom {{name}}</h3>
+<p>Here are your blogs</p>
+{{#if blogs}}
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each blogs}}
+                <tr>
+                    <td><a href=href="/blogs/{{_id}}"></a>{{title}}</td>
+                    <td>{{createdAt}}</td>
+                    <td><span class="dash-status">
+                        {{status}}
+                    </span></td>
+                    <td></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <p>You have not created any blogs</p>
+{{/if}}

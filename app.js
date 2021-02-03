@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const morgan =  require('morgan')
 const exphbs = require('express-handlebars')
@@ -18,6 +19,10 @@ connectDB()
 
 const app = express()
 
+// Body parser
+app.use(express.urlencoded({extended: false}))
+app.use(express.json())
+
 // Logging
 if (process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'))
@@ -33,6 +38,7 @@ app.use(
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection})
     })
 )
 
@@ -46,6 +52,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 // Routes
 app.use('/', require('./routes/index'))
 app.use('/auth', require('./routes/auth'))
+app.use('/blogs', require('./routes/blogs'))
 
 const PORT = process.env.PORT || 3000
 
