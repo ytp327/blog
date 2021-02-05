@@ -23,5 +23,19 @@ router.post('/', ensureAuth, async (req, res) =>{
     }
 })
 
+// @desc Show all blogs
+// @route GET /blogs
+router.get('/', ensureAuth, async (req, res) =>{
+    try{
+        const blogs = await Blog.find({status: 'public'})
+            .populate('user').sort({createdAt: 'desc'}).lean()
+        res.render('blogs/index', {
+            blogs
+        })
+    } catch(err){
+        console.error(err)
+        res.render('error/500')
+    }
+})
 
 module.exports = router

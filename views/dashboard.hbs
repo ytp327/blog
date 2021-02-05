@@ -15,7 +15,7 @@
             {{#each blogs}}
                 <tr>
                     <td><a href=href="/blogs/{{_id}}"></a>{{title}}</td>
-                    <td>{{createdAt}}</td>
+                    <td>{{formatDate createdAt 'YYYY MMM Do, h:mm:ss a'}}</td>
                     <td><span class="dash-status">
                         {{status}}
                     </span></td>
