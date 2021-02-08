@@ -17,4 +17,27 @@ module.exports = {
     stripTags: function (input) {
         return input.replace(/<(?:.|\n)*?>/gm, '')
     },
+    editIcon: function (blogUser, loggedUser, blogId, floating = true) {
+        if (blogUser._id.toString() == loggedUser._id.toString()) {
+        if (floating) {
+            return `<a href="/stories/edit/${blogId}" class="btn-floating halfway-fab blue"><i class="far fa-edit fa-small"></i></a>`
+        } else {
+            return `<a href="/stories/edit/${blogId}"><i class="far fa-edit"></i></a>`
+        }
+        } else {
+        return ''
+        }
+    },
+    select: function (selected, options) {
+        return options
+        .fn(this)
+        .replace(
+            new RegExp(' value="' + selected + '"'),
+            '$& selected="selected"'
+        )
+        .replace(
+            new RegExp('>' + selected + '</option>'),
+            ' selected="selected"$&'
+        )
+    },
 }
