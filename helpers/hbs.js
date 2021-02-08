@@ -20,9 +20,9 @@ module.exports = {
     editIcon: function (blogUser, loggedUser, blogId, floating = true) {
         if (blogUser._id.toString() == loggedUser._id.toString()) {
         if (floating) {
-            return `<a href="/stories/edit/${blogId}" class="btn-floating halfway-fab blue"><i class="far fa-edit fa-small"></i></a>`
+            return `<a href="/blogs/edit/${blogId}" class="btn-floating halfway-fab blue"><i class="far fa-edit fa-small"></i></a>`
         } else {
-            return `<a href="/stories/edit/${blogId}"><i class="far fa-edit"></i></a>`
+            return `<a href="/blogs/edit/${blogId}"><i class="far fa-edit"></i></a>`
         }
         } else {
         return ''
