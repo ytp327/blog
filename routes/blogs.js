@@ -79,22 +79,28 @@ router.get('/edit/:id', ensureAuth, async (req, res) =>{
 // @desc Update blog
 // @route PUT /blogs/:id
 router.put('/:id', ensureAuth, async (req, res) =>{
-    let blog = await Blog.findById(req.params.id).lean()
+    try{
+        let blog = await Blog.findById(req.params.id).lean()
 
-    if (!blog){
-        return res.render('error/404')
+        if (!blog){
+            return res.render('error/404')
+        }
+
+        if (blog.user != req.user.id){
+            res.redirect('/blogs')
+        } else{
+            blog = await Blog.findOneAndUpdate({_id: req.params.id}, req.body, {
+                new: true,
+                runValidators: true
+            })
+
+            res.redirect("/dashboard")
+        }
+    } catch (err){
+        console.error(err)
+        return res.render('error/500')
     }
-
-    if (blog.user != req.user.id){
-        res.redirect('blogs')
-    } else{
-        blog = await Blog.findOneAndUpdate({_id: req.param.id}, req.body, {
-            new: true,
-            runValidators: true
-        })
-
-        res.redirect("/dashboard")
-    }
+    
 })
 
 // @desc Delete blog
