@@ -12,6 +12,9 @@ npm install
 
 # Start server
 npm start
+
+# Visit
+use your browser and visit http://localhost:3000
 ```
 <br>
 <p float="left;center">
